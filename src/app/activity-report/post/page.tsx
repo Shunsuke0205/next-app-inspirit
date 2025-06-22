@@ -3,7 +3,7 @@
 import { createClient } from "@/utils/supabase/client";
 import React, { useState, useEffect, FormEvent } from "react";
 
-interface ScholarshipApplication {
+interface ReportingActivities {
   id: string; // UUID
   title: string | null;
   // 他のscholarship_applicationsカラムもここに追加
@@ -69,15 +69,12 @@ const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   const [reportText, setReportText] = useState("");
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]); // 選択されたapplication IDの配列
-  const [availableApplications, setAvailableApplications] = useState<ScholarshipApplication[]>([]); // ユーザーが支援を受けている申請
+  const [availableActivities, setAvailableActivities] = useState<ReportingActivities[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [isApplicationsLoading, setIsApplicationsLoading] = useState(true);
 
-/*   // ダミーの毎日報告用アプリケーションID（管理者が作成し、DBに存在するIDを想定）
-  // 実際には環境変数やDBから取得すべきです
-  const DAILY_REPORT_DUMMY_APP_ID = process.env.NEXT_PUBLIC_DAILY_REPORT_DUMMY_APP_ID || "YOUR_DUMMY_APP_UUID_HERE"; */
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -94,9 +91,9 @@ const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => {
       if (error) {
         console.error("Error fetching applications:", error.message);
         setSubmitError("報告が必要な活動が存在しないか、活動の取得に失敗しました。");
-        setAvailableApplications([]);
+        setAvailableActivities([]);
       } else {
-        setAvailableApplications(data || []);
+        setAvailableActivities(data || []);
       }
 
       setIsApplicationsLoading(false);
@@ -153,9 +150,9 @@ const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => {
 
       setSubmitSuccess("活動報告が正常に投稿されました！");
       setReportText("");
-    } catch (err: any) {
+    } catch (err) {
       console.error("Activity report submission error:", err);
-      setSubmitError(err.message || "不明なエラーが発生しました。");
+      setSubmitError("不明なエラーが発生しました。");
     } finally {
       setIsSubmitting(false);
     }
@@ -190,11 +187,11 @@ const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => {
         </label>
         {isApplicationsLoading ? (
           <p>支援情報を読み込み中...</p>
-        ) : availableApplications.length === 0 ? (
+        ) : availableActivities.length === 0 ? (
           <p className="text-gray-500">関連する支援が見つかりませんでした。</p>
         ) : (
           <div className="space-y-2">
-            {availableApplications.map((app) => (
+            {availableActivities.map((app) => (
               <div key={app.id} className="flex items-center">
                 <input
                   type="checkbox"
