@@ -1,8 +1,8 @@
 "use client";
 
 import { createClient } from "@/utils/supabase/client";
-import React, { useEffect, useState } from "react";
-import { text } from "stream/consumers";
+import React, { FormEvent, useEffect, useState } from "react";
+
 
 const useAuthorization = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -67,9 +67,9 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
     requested_amount: 0,
     enthusiasm: "",
     long_term_goal: "",
-    amazon_wishlist_url: "", // NULL許容のため、最初は空文字列
-    entire_report_period_days: 31, // デフォルト値
-    report_interval_days: 31,     // デフォルト値
+    amazon_wishlist_url: null,
+    entire_report_period_days: 31,
+    report_interval_days: 31,
   });
 
   // フォーム送信中の状態
@@ -101,7 +101,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
       }
 
       const supabase = createClient();
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("scholarship_applications")
         .insert({
           user_id: userId,
@@ -127,9 +127,9 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
       setSubmitSuccess("申請が正常に投稿されました！");
       // 成功後、任意のページにリダイレクト
       // router.push("/dashboard/my-applications"); // 例: マイ申請一覧ページなど
-    } catch (err: any) {
+    } catch (err) {
       console.error("Application submission error:", err);
-      setSubmitError(err.message || "不明なエラーが発生しました。");
+      setSubmitError("不明なエラーが発生しました。");
     } finally {
       setIsSubmitting(false);
     }
@@ -137,11 +137,11 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-2xl mx-auto bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">新しい支援を募集する</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">意気込みを投稿する</h2>
 
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-          募集タイトル <span className="text-red-500">*</span>
+          タイトル <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
@@ -230,7 +230,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           name="long_term_goal"
           value={formData.long_term_goal}
           onChange={handleChange}
-          rows={4}
+          rows={2}
           required
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
         ></textarea>
@@ -239,7 +239,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="entire_report_period_days" className="block text-sm font-medium text-gray-700">
-            報告義務期間 (日数) <span className="text-red-500">*</span>
+            この活動を終えるまでの、活動報告を行う期間（日数）<span className="text-red-500">*</span>
           </label>
           <input
             type="number"
@@ -252,12 +252,12 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
           />
           <p className="text-xs text-gray-500 mt-1">
-            この期間中、毎日最低1回活動報告を行う義務があります。
+            この期間中、毎日1回以上の活動報告を行う義務が発生します。
           </p>
         </div>
         <div>
           <label htmlFor="report_interval_days" className="block text-sm font-medium text-gray-700">
-            この支援の報告頻度 (X日ごと) <span className="text-red-500">*</span>
+            この支援の報告頻度（X日ごと）<span className="text-red-500">*</span>
           </label>
           <input
             type="number"
@@ -277,13 +277,13 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
 
       <div>
         <label htmlFor="amazon_wishlist_url" className="block text-sm font-medium text-gray-700">
-          Amazonの欲しい物リストURL (任意)
+          Amazonの欲しい物リストURL（任意）
         </label>
         <input
           type="url"
           id="amazon_wishlist_url"
           name="amazon_wishlist_url"
-          value={formData.amazon_wishlist_url}
+          value={formData.amazon_wishlist_url || ""}
           onChange={handleChange}
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
           placeholder="例: https://www.amazon.co.jp/hz/wishlist/ls/..."
@@ -307,57 +307,6 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
         {isSubmitting ? "投稿中..." : "募集を投稿する"}
       </button>
     </form>
-  );
-};
-
-const TestSubmission = ({ userId }: { userId: string | null }) => {
-  const handleTestSubmission = async () => {
-    if (!userId) {
-      console.error("ユーザーIDが取得できません。ログインし直してください。");
-      return;
-    }
-
-    const supabase = createClient();
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-    if (userError || !userData.user) {
-      console.error("ユーザー情報の取得に失敗しました:", userError?.message || "ユーザーが見つかりません。");
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from("scholarship_applications")
-      .insert([{
-        user_id: userData.user.id,
-        title: "テスト投稿",
-        item_description: "これはテスト投稿の説明です。",
-        item_price: 1000,
-        requested_amount: 500,
-        enthusiasm: "テスト投稿に対する意気込みです。",
-        long_term_goal: "テスト投稿の長期的な目標です。",
-        amazon_wishlist_url: "https://www.amazon.co.jp/hz/wishlist/ls/...",
-        entire_report_period_days: 60,
-        report_interval_days: 45,
-        status: "pending",
-      }])
-      .select("*")
-      .single();
-
-
-    console.log("テスト投稿の挿入結果:", data, error);
-    if (error) {
-      console.error("テスト投稿の挿入に失敗しました:", error.message);
-    } else {
-      console.log("テスト投稿が正常に挿入されました:", data);
-    }
-  };
-
-  return (
-    <button 
-      onClick={handleTestSubmission}
-      className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        テスト投稿を行う
-    </button>
   );
 };
 
@@ -386,9 +335,6 @@ const Page = () => {
     <div>
       <h1>偉大な最初の一歩を踏み出しましょう！</h1>
       <p>あなたの夢や目標を投稿して、支援を募りましょう。</p>
-      {/* ここに投稿フォームのコンポーネントを配置 */}
-      <p>{userId}</p>
-      <TestSubmission userId={userId} />
       <ApplicationForm userId={userId} />
     </div>
   );
