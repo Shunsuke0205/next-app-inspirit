@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -69,12 +70,14 @@ async function MyApplications() {
       <h2>申請一覧</h2>
       <ul>
         {applicationsData.map((application) => (
-          <li key={application.id}>
-            <h3>{application.title}</h3>
-            <p>ステータス: {application.status}</p>
-            <p>作成日時: {new Date(application.created_at).toLocaleDateString()}</p>
-            <p>アイテム説明: {application.item_description}</p>
-          </li>
+          <Link key={application.id} href={`/bright-first-step/${application.id}`}>
+            <li>
+              <h3>{application.title}</h3>
+              <p>ステータス: {application.status}</p>
+              <p>作成日時: {new Date(application.created_at).toLocaleDateString()}</p>
+              <p>アイテム説明: {application.item_description}</p>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>
