@@ -47,11 +47,41 @@ async function MyApplications() {
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
-  console.log("Applications Data:", applicationsData);
+  if (applicationsError) {
+    console.error("Error fetching applications data:", applicationsError);
+    return (
+      <div>
+        申し訳ありませんが、申請情報の取得に失敗しました。後ほど再度お試しください。
+      </div>
+    );
+  }
+
+  if (!applicationsData || applicationsData.length === 0) {
+    return (
+      <div>
+        現在、申請はありません。新しい申請を作成してください。
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2>申請一覧</h2>
+      <ul>
+        {applicationsData.map((application) => (
+          <li key={application.id}>
+            <h3>{application.title}</h3>
+            <p>ステータス: {application.status}</p>
+            <p>作成日時: {new Date(application.created_at).toLocaleDateString()}</p>
+            <p>アイテム説明: {application.item_description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 const Page = () => {
-  MyApplications();
   return (
     <div>
       <div>
@@ -60,7 +90,7 @@ const Page = () => {
       </div>
       <MyApplications />
     </div>
-  )
-}
+  );
+};
 
 export default Page;
