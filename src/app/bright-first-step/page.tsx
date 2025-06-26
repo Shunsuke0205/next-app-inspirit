@@ -44,7 +44,20 @@ async function MyApplications() {
   
   const { data: applicationsData, error: applicationsError } = await supabase
     .from("scholarship_applications")
-    .select("id, title, status, created_at, item_description")
+    .select(`
+      id, 
+      title, 
+      status, 
+      createdAt:created_at, 
+      itemDescription:item_description, 
+      itemPrice:item_price, 
+      requestedAmount:requested_amount,
+      enthusiasm,
+      longTermGoal:long_term_goal,
+      amazonWishlistUrl:amazon_wishlist_url,
+      entireReportPeriodDays:entire_report_period_days,
+      reportIntervalDays:report_interval_days
+    `)
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
@@ -65,6 +78,8 @@ async function MyApplications() {
     );
   }
 
+  console.log("Fetched applications data:", applicationsData);
+
   return (
     <div>
       <h2>申請一覧</h2>
@@ -74,8 +89,8 @@ async function MyApplications() {
             <li>
               <h3>{application.title}</h3>
               <p>ステータス: {application.status}</p>
-              <p>作成日時: {new Date(application.created_at).toLocaleDateString()}</p>
-              <p>アイテム説明: {application.item_description}</p>
+              <p>作成日時: {new Date(application.createdAt).toLocaleDateString()}</p>
+              <p>アイテム説明: {application.itemDescription}</p>
             </li>
           </Link>
         ))}
