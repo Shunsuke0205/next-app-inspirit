@@ -93,23 +93,38 @@ async function MyApplications() {
     );
   }
 
-  console.log("Fetched applications data:", applicationsData);
+  // console.log("Fetched applications data:", applicationsData);
 
   return (
-    <div>
-      <h2>申請一覧</h2>
-      <ul>
-        {applicationsData.map((application : ScholarshipApplication) => (
-          <Link key={application.id} href={`/bright-first-step/${application.id}`}>
-            <li>
-              <h3>{application.title}</h3>
-              <p>ステータス: {application.status}</p>
-              <p>作成日時: {new Date(application.createdAt).toLocaleDateString()}</p>
-              <p>アイテム説明: {application.itemDescription}</p>
-            </li>
-          </Link>
-        ))}
-      </ul>
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">あなたの申請一覧</h2>
+      {applicationsData.map((application) => (
+        <Link key={application.id} href={`/bright-first-step/${application.id}`} className="block">
+          <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 transition-shadow hover:shadow-lg cursor-pointer">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">{application.title || "タイトルなし"}</h3>
+            <p className="text-sm text-gray-500 mb-4">
+              投稿日: {new Date(application.createdAt).toLocaleDateString("ja-JP")}
+            </p>
+            <div className="flex flex-wrap items-center gap-4 mb-4">
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  application.status === 'active' ? 'bg-green-100 text-green-800' :
+                  application.status === 'reporting' ? 'bg-blue-100 text-blue-800' :
+                  'bg-gray-100 text-gray-800'
+                }`}
+              >
+                {application.status === 'active' ? '募集受付中' :
+                 application.status === 'reporting' ? '活動報告中' :
+                 '状態不明'}
+              </span>
+              <span className="text-lg font-bold text-indigo-700">
+                希望金額: {application.requestedAmount.toLocaleString()} 円
+              </span>
+            </div>
+            <p className="text-gray-700 line-clamp-3">{application.itemDescription || "説明なし"}</p>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 }
@@ -117,10 +132,6 @@ async function MyApplications() {
 const Page = () => {
   return (
     <div>
-      <div>
-        bright-first-step Page
-
-      </div>
       <MyApplications />
     </div>
   );
