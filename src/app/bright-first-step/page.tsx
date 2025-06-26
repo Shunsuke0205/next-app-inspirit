@@ -3,6 +3,21 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
+type ScholarshipApplication = {
+  id: string;
+  title: string | null;
+  status: string | null;
+  createdAt: string;
+  itemDescription: string | null;
+  itemPrice: number;
+  requestedAmount: number;
+  enthusiasm: string | null;
+  longTermGoal: string | null;
+  amazonWishlistUrl: string | null;
+  entireReportPeriodDays: number;
+  reportIntervalDays: number;
+};
+
 async function MyApplications() {
   const supabase = await createClient();
   const { data: userData, error: userError } = await supabase.auth.getUser();
@@ -84,7 +99,7 @@ async function MyApplications() {
     <div>
       <h2>申請一覧</h2>
       <ul>
-        {applicationsData.map((application) => (
+        {applicationsData.map((application : ScholarshipApplication) => (
           <Link key={application.id} href={`/bright-first-step/${application.id}`}>
             <li>
               <h3>{application.title}</h3>
