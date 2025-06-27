@@ -98,7 +98,7 @@ async function MyApplications() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">あなたの申請一覧</h2>
-      {applicationsData.map((application) => (
+      {applicationsData.map((application : ScholarshipApplication) => (
         <Link key={application.id} href={`/bright-first-step/${application.id}`} className="block">
           <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 transition-shadow hover:shadow-lg cursor-pointer">
             <h3 className="text-xl font-semibold text-gray-900 mb-2">{application.title || "タイトルなし"}</h3>
