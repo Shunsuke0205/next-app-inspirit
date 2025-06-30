@@ -10,15 +10,14 @@ const StudentHomePage = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50 p-4">
       {/* ページのメインタイトル */}
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 text-center leading-tight tracking-tight drop-shadow-sm">
-        あなたの学びを、もっと。
+        あなたの活動を、もっと。
         <br />
-        未来へ繋ぐ学生アプリ
       </h1>
 
       {/* ページの簡単な説明 */}
       <p className="text-md sm:text-lg text-gray-700 mb-12 text-center max-w-3xl">
-        ここでは、あなたの夢の投稿管理や、日々の活動報告ができます。
-        さあ、あなたの「学び」をさらに加速させましょう。
+        ここでは、あなたの夢の投稿管理や、日々の活動報告ができます。<br />
+        さあ、あなたの活動をさらに加速させましょう。
       </p>
 
       {/* 主要機能へのナビゲーションカード */}
@@ -31,7 +30,7 @@ const StudentHomePage = () => {
             </svg>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">新しい夢を投稿する</h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              学業に必要な物品の支援を募るための、あなたの「偉大な最初の一歩」をここで投稿します。
+              活動に必要な物品の支援を募るための、あなたの「偉大な最初の一歩」をここで投稿します。
             </p>
           </div>
         </Link>
