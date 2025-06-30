@@ -51,20 +51,13 @@ export default async function MyActivityReportsPage() {
     );
   }
   
-  return (
-    <p>
-      ok!
-    </p>
-  )
-
   const { data: reportsData, error: reportsError } = await supabase
     .from("activity_reports")
     .select(`
       id,
-      report_text,
-      created_at,
-      related_application_ids,
-      scholarship_applications(id, title) -- 関連する申請のIDとタイトルをJOIN
+      reportText: report_text,
+      createdAt: created_at,
+      relatedApplicationIds: related_application_ids
     `)
     .eq("user_id", userId) // 自分の活動報告のみにフィルタリング
     .order("created_at", { ascending: false }); // 新しい順にソート
@@ -80,6 +73,14 @@ export default async function MyActivityReportsPage() {
       </div>
     );
   }
+  
+  console.log("Fetched activity reports:", reportsData);
+
+  return (
+    <p>
+      ok!
+    </p>
+  )
 
   // 取得したデータを整形して、関連する申請タイトルを扱いやすくする
   const formattedReports = reportsData.map(report => {
