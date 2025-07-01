@@ -114,8 +114,8 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           amazon_wishlist_url: formData.amazon_wishlist_url || null, // 空文字列の場合はNULLとして送信
           entire_report_period_days: formData.entire_report_period_days,
           report_interval_days: formData.report_interval_days,
+          status: "active"
           // created_at, status, is_deleted, last_reported_at はDBのデフォルト値またはSupabaseで自動設定
-          // statusは 'pending' がデフォルトで設定される
           // last_reported_at は null で挿入される
         })
         .select(); // 挿入されたデータを返す
