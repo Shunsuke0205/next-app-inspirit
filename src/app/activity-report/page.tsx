@@ -30,27 +30,53 @@ export default async function MyActivityReportsPage() {
 
   const userId = userData.user?.id;
 
-  const { data: studentAuthData, error: studentAuthError } = await supabase
-    .from("student_authorizations")
-    .select("is_verified, is_banned")
-    .eq("user_id", userId)
-    .single();
+  {
+    const { data: studentAuthData, error: studentAuthError } = await supabase
+      .from("student_authorizations")
+      .select("is_verified, is_banned")
+      .eq("user_id", userId)
+      .single();
 
-  if (studentAuthError || !studentAuthData?.is_verified || studentAuthData?.is_banned) {
-    // todo: separate error handling for banned users
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-        <div className="text-center p-8 bg-white rounded-lg shadow-lg">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">アクセス権限がありません。</h1>
-          <p className="text-gray-700">このページは本人確認済みの高校生のみが閲覧できます。</p>
-          <Link href="/" className="mt-6 inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
-            ホームに戻る
-          </Link>
+    if (studentAuthError) {
+      console.error("Error fetching student authorization data:", studentAuthError?.message);
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+          <div className="text-center p-8 bg-white rounded-lg shadow-lg">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">アカウントの取得に失敗しました。</h1>
+            <p className="text-gray-700">申し訳ありませんが、ログインし直してください。</p>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else if (!studentAuthData?.is_verified) {
+      console.error("User is not verified");
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+          <div className="text-center p-8 bg-white rounded-lg shadow-lg">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">アカウントが認証されていません。</h1>
+            <p className="text-gray-700">お手数おかけしますが、学生情報を提出して認証を完了してください。</p>
+            <Link href="/" className="mt-6 inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+              ホームに戻る
+            </Link>
+          </div>
+        </div>
+      );
+    } else if (studentAuthData.is_banned) {
+      console.error("User is banned");
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+          <div className="text-center p-8 bg-white rounded-lg shadow-lg">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">アカウントが停止されています。</h1>
+            <p className="text-gray-700">申し訳ありませんが、活動報告が不十分だったため、アカウントが停止されています。</p>
+            <Link href="/" className="mt-6 inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+              ホームに戻る
+            </Link>
+          </div>
+        </div>
+      );
+    }   
   }
-  
+
+
   const { data: reportsData, error: reportsError } = await supabase
     .from("activity_reports")
     .select(`
