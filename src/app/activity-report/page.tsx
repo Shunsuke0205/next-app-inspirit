@@ -1,6 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import React from "react";
 
 // 活動報告の型定義
@@ -85,8 +84,8 @@ export default async function MyActivityReportsPage() {
       createdAt: created_at,
       relatedApplicationIds: related_application_ids
     `)
-    .eq("user_id", userId) // 自分の活動報告のみにフィルタリング
-    .order("created_at", { ascending: false }); // 新しい順にソート
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
 
   if (reportsError || !reportsData) {
     console.error("Error fetching activity reports:", reportsError?.message);
@@ -100,64 +99,39 @@ export default async function MyActivityReportsPage() {
     );
   }
   
-  console.log("Fetched activity reports:", reportsData);
-
-  return (
-    <p>
-      ok!
-    </p>
-  )
-
-  // 取得したデータを整形して、関連する申請タイトルを扱いやすくする
-  const formattedReports = reportsData.map(report => {
-    // SupabaseのJOIN結果はネストしたオブジェクトになる
-    const relatedApps = Array.isArray(report.scholarship_applications)
-      ? report.scholarship_applications.map((app: any) => ({
-          id: app.id,
-          title: app.title
-        }))
-      : []; // scholarship_applications が null の場合も考慮
-
-    return {
-      ...report,
-      related_applications_info: relatedApps
-    };
-  });
-
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">あなたの活動報告一覧</h1>
-      {formattedReports.length === 0 ? (
+      {reportsData.length === 0 ? (
         <div className="text-center text-gray-500 text-xl mt-10 p-6 bg-gray-50 rounded-lg shadow-sm">
           <p>まだ活動報告がありません。</p>
-          <p className="mt-2 text-base">日々の活動を報告してみましょう！</p>
+          <p className="mt-2 text-base">日々の活動を記録してみましょう！</p>
           <Link href="/activity-report/post" className="mt-4 inline-block bg-indigo-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-indigo-700 transition">
             新しい活動報告を作成する
           </Link>
         </div>
       ) : (
         <div className="space-y-6">
-          {formattedReports.map((report) => (
+          {reportsData.map((report) => (
             <div
               key={report.id}
               className="bg-white p-6 rounded-lg shadow-md border border-gray-200 transition-shadow hover:shadow-lg"
             >
               <div className="flex justify-between items-center mb-3">
-                <h2 className="text-lg font-semibold text-gray-800">活動報告 #{report.id}</h2>
                 <p className="text-sm text-gray-500">
-                  投稿日: {new Date(report.created_at).toLocaleDateString("ja-JP")}
+                  投稿日: {new Date(report.createdAt).toLocaleDateString("ja-JP")}
                 </p>
               </div>
-              <p className="text-gray-700 mb-4 whitespace-pre-wrap">{report.report_text}</p>
+              <p className="text-gray-700 mb-4 whitespace-pre-wrap">{report.reportText}</p>
 
-              {report.related_applications_info.length > 0 && (
+              {report.relatedApplicationIds && report.relatedApplicationIds.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-sm font-medium text-gray-600 mb-1">関連する支援:</p>
+                  <p className="text-sm font-medium text-gray-600 mb-1">関連する支援ID:</p>
                   <div className="flex flex-wrap gap-2">
-                    {report.related_applications_info.map((app) => (
-                      <Link key={app.id} href={`/discover/${app.id}`} className="block">
+                    {report.relatedApplicationIds.map((appId, index) => (
+                      <Link key={index} href={`/discover/${appId}`} className="block">
                         <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition cursor-pointer">
-                          {app.title || "タイトルなし"}
+                          {appId}
                         </span>
                       </Link>
                     ))}
