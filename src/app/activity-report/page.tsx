@@ -75,17 +75,19 @@ export default async function MyActivityReportsPage() {
     }   
   }
 
-
   const { data: reportsData, error: reportsError } = await supabase
-    .from("activity_reports")
-    .select(`
-      id,
-      reportText: report_text,
-      createdAt: created_at,
-      relatedApplicationIds: related_application_ids
-    `)
-    .eq("user_id", userId)
-    .order("created_at", { ascending: false });
+    .rpc('get_user_activity_reports_with_applications', { p_user_id: userId }); // 引数名も正確に一致させる
+
+  // const { data: reportsData, error: reportsError } = await supabase
+  //   .from("activity_reports")
+  //   .select(`
+  //     id,
+  //     reportText: report_text,
+  //     createdAt: created_at,
+  //     relatedApplicationIds: related_application_ids
+  //   `)
+  //   .eq("user_id", userId)
+  //   .order("created_at", { ascending: false });
 
   if (reportsError || !reportsData) {
     console.error("Error fetching activity reports:", reportsError?.message);
@@ -98,6 +100,8 @@ export default async function MyActivityReportsPage() {
       </div>
     );
   }
+
+  console.log("Fetched activity reports:", reportsData);
   
   return (
     <div className="container mx-auto p-8">
