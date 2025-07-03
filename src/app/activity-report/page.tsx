@@ -8,6 +8,7 @@ type ActivityReport = {
   userId: string;
   reportText: string;
   relatedApplicationIds: string[]; // UUID[]
+  relatedApplicationsInfo: RelatedApplicationInfo[];
   createdAt: string;
 };
 
@@ -17,11 +18,9 @@ type RawRpcActivityReport = {
   report_text: string;
   created_at: string;
   related_application_ids: string[];
-  related_applications_info: { id : string; title: string | null }[];
+  related_applications_info: RelatedApplicationInfo[];
 };
 
-// 関連する申請の簡易情報（活動報告一覧で表示するため）
-// 後で scholarship_applications テーブルと JOIN する場合に拡張する
 type RelatedApplicationInfo = {
   id: string;
   title: string | null;
@@ -98,6 +97,7 @@ export default async function MyActivityReportsPage() {
       </div>
     );
   }
+
   const reportsData: ActivityReport[] = rawReportsData.map((report: RawRpcActivityReport) => ({
     id: report.id,
     userId: report.user_id,
@@ -106,8 +106,7 @@ export default async function MyActivityReportsPage() {
     createdAt: report.created_at,
     relatedApplicationsInfo: report.related_applications_info
   }));
-  console.log("Fetched activity reports:", reportsData);
-  
+
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">あなたの活動報告一覧</h1>
@@ -135,15 +134,15 @@ export default async function MyActivityReportsPage() {
 
               {report.relatedApplicationIds && report.relatedApplicationIds.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-sm font-medium text-gray-600 mb-1">関連する支援ID:</p>
+                  <p className="text-sm font-medium text-gray-600 mb-1">関連する応援:</p>
                   <div className="flex flex-wrap gap-2">
-                    {report.relatedApplicationIds.map((appId, index) => (
-                      <Link key={index} href={`/discover/${appId}`} className="block">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition cursor-pointer">
-                          {appId}
-                        </span>
-                      </Link>
-                    ))}
+                    {report.relatedApplicationsInfo.map((info, index) => {
+                      return (
+                        <div key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition cursor-pointer">
+                          {info.title || "タイトルなし"}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
