@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
 
 // 活動報告の型定義
 type ActivityReport = {
@@ -9,6 +9,15 @@ type ActivityReport = {
   reportText: string;
   relatedApplicationIds: string[]; // UUID[]
   createdAt: string;
+};
+
+type RawRpcActivityReport = {
+  id: number;
+  user_id: string;
+  report_text: string;
+  created_at: string;
+  related_application_ids: string[];
+  related_applications_info: { id : string; title: string | null }[];
 };
 
 // 関連する申請の簡易情報（活動報告一覧で表示するため）
@@ -75,21 +84,10 @@ export default async function MyActivityReportsPage() {
     }   
   }
 
-  const { data: reportsData, error: reportsError } = await supabase
-    .rpc('get_user_activity_reports_with_applications', { p_user_id: userId }); // 引数名も正確に一致させる
+  const { data: rawReportsData, error: reportsError } = await supabase
+    .rpc('get_user_activity_reports_with_applications', { p_user_id: userId });
 
-  // const { data: reportsData, error: reportsError } = await supabase
-  //   .from("activity_reports")
-  //   .select(`
-  //     id,
-  //     reportText: report_text,
-  //     createdAt: created_at,
-  //     relatedApplicationIds: related_application_ids
-  //   `)
-  //   .eq("user_id", userId)
-  //   .order("created_at", { ascending: false });
-
-  if (reportsError || !reportsData) {
+  if (reportsError || !rawReportsData) {
     console.error("Error fetching activity reports:", reportsError?.message);
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
@@ -100,7 +98,14 @@ export default async function MyActivityReportsPage() {
       </div>
     );
   }
-
+  const reportsData: ActivityReport[] = rawReportsData.map((report: RawRpcActivityReport) => ({
+    id: report.id,
+    userId: report.user_id, // スネークケースからキャメルケースへマッピング
+    reportText: report.report_text, // スネークケースからキャメルケースへマッピング
+    relatedApplicationIds: report.related_application_ids, // そのまま
+    createdAt: report.created_at, // スネークケースからキャメルケースへマッピング
+    relatedApplicationsInfo: report.related_applications_info // そのまま
+  }));
   console.log("Fetched activity reports:", reportsData);
   
   return (
