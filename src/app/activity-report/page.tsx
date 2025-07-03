@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import React, { use } from "react";
+import React from "react";
 
 // 活動報告の型定義
 type ActivityReport = {
