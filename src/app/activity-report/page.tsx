@@ -100,11 +100,11 @@ export default async function MyActivityReportsPage() {
   }
   const reportsData: ActivityReport[] = rawReportsData.map((report: RawRpcActivityReport) => ({
     id: report.id,
-    userId: report.user_id, // スネークケースからキャメルケースへマッピング
-    reportText: report.report_text, // スネークケースからキャメルケースへマッピング
-    relatedApplicationIds: report.related_application_ids, // そのまま
-    createdAt: report.created_at, // スネークケースからキャメルケースへマッピング
-    relatedApplicationsInfo: report.related_applications_info // そのまま
+    userId: report.user_id,
+    reportText: report.report_text,
+    relatedApplicationIds: report.related_application_ids,
+    createdAt: report.created_at,
+    relatedApplicationsInfo: report.related_applications_info
   }));
   console.log("Fetched activity reports:", reportsData);
   
