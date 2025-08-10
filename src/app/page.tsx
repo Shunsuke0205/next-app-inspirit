@@ -75,6 +75,9 @@ const StudentHomePage = () => {
         </Link>
       </div>
 
+      <Link href="/guide" className="mt-12 text-indigo-600 hover:text-indigo-800 transition-colors">
+        <span className="text-sm">アプリの使い方ページはこちら</span>
+      </Link>
       
     </div>
   );
