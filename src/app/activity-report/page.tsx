@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import React from "react";
+import { ActivityReportForm } from "./post/page";
 
 // 活動報告の型定義
 type ActivityReport = {
@@ -102,8 +103,11 @@ export default async function MyActivityReportsPage() {
   }));
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">あなたの活動報告一覧</h1>
+    <div className="container mx-auto max-w-xl p-4">
+      {userId !== undefined && (
+        <ActivityReportForm userId={userId} />
+      )}
+      <h1 className="mt-20 text-3xl font-bold text-gray-800 mb-8 text-center">あなたの活動報告一覧</h1>
       {reportsData.length === 0 ? (
         <div className="text-center text-gray-500 text-xl mt-10 p-6 bg-gray-50 rounded-lg shadow-sm">
           <p>まだ活動報告がありません。</p>
