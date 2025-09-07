@@ -57,13 +57,13 @@ const useAuthorization = () => {
 
     checkAuthorization();
   }, []);
-  
+
   return { userId, isAuthorized, isLoading, error };
 };
 
 
 
-const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => {
+export const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => {
   // const supabase = createClient(); // handleSubmit内でawait
   // const router = useRouter();
 
@@ -160,7 +160,8 @@ const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-2xl mx-auto bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">活動報告を投稿する</h2>
+      {/* <h2 className="text-2xl font-bold text-gray-800 mb-6">活動報告を投稿する</h2> */}
+      <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">活動報告を投稿する</h1>
 
       <div>
         <label htmlFor="report_text" className="block text-sm font-medium text-gray-700">
@@ -220,7 +221,7 @@ const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => {
       <button
         type="submit"
         disabled={isSubmitting || isApplicationsLoading}
-        className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+        className={`cursor-pointer w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
           isSubmitting || isApplicationsLoading ? "bg-indigo-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"
         } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
       >
