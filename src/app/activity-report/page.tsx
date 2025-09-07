@@ -112,9 +112,6 @@ export default async function MyActivityReportsPage() {
         <div className="text-center text-gray-500 text-xl mt-10 p-6 bg-gray-50 rounded-lg shadow-sm">
           <p>まだ活動報告がありません。</p>
           <p className="mt-2 text-base">日々の活動を記録してみましょう！</p>
-          <Link href="/activity-report/post" className="mt-4 inline-block bg-indigo-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-indigo-700 transition">
-            新しい活動報告を作成する
-          </Link>
         </div>
       ) : (
         <div className="space-y-6">
