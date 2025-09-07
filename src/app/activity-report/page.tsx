@@ -4,8 +4,6 @@ import React from "react";
 
 // 活動報告の型定義
 type ActivityReport = {
-  id: number;
-  userId: string;
   reportText: string;
   relatedApplicationIds: string[]; // UUID[]
   relatedApplicationsInfo: RelatedApplicationInfo[];
@@ -13,8 +11,6 @@ type ActivityReport = {
 };
 
 type RawRpcActivityReport = {
-  id: number;
-  user_id: string;
   report_text: string;
   created_at: string;
   related_application_ids: string[];
@@ -99,8 +95,6 @@ export default async function MyActivityReportsPage() {
   }
 
   const reportsData: ActivityReport[] = rawReportsData.map((report: RawRpcActivityReport) => ({
-    id: report.id,
-    userId: report.user_id,
     reportText: report.report_text,
     relatedApplicationIds: report.related_application_ids,
     createdAt: report.created_at,
@@ -120,9 +114,9 @@ export default async function MyActivityReportsPage() {
         </div>
       ) : (
         <div className="space-y-6">
-          {reportsData.map((report) => (
+          {reportsData.map((report, index) => (
             <div
-              key={report.id}
+              key={index}
               className="bg-white p-6 rounded-lg shadow-md border border-gray-200 transition-shadow hover:shadow-lg"
             >
               <div className="flex justify-between items-center mb-3">
