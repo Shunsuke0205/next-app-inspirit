@@ -95,7 +95,8 @@ export default function GuidePage() {
       {/* 警告と強制退会のルール */}
 
       <div className="text-center mt-8 text-gray-500 text-sm">
-        <p>ご不明な点はお問い合わせください。</p>
+        <p>ご不明な点はメールでお問い合わせください。</p>
+        <p>メールアドレス: en4singleparents@gmail.com</p>
       </div>
     </div>
   );
