@@ -72,6 +72,7 @@ export default function GuidePage() {
           <p className="text-gray-700">
             物が贈られると、毎日報告をする義務が発生します。
             あなたの活動が支援者の「応援してよかった」という気持ちにつながります。
+            また、継続的な活動報告はあなたの努力の証明となり、次の代理購入のための信頼になります。
           </p>
           <ul className="list-disc list-inside text-gray-700">
             <li>毎日1回以上の活動報告が必要です。</li>
