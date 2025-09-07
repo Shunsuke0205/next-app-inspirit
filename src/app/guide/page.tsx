@@ -14,8 +14,8 @@ export default function GuidePage() {
         </p>
 
         {/* ステップ1: 本人確認 */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center">
+        <div className="space-y-2">
+          <h2 className="mt-12 text-2xl font-bold text-gray-800 flex items-center">
             <span className="bg-indigo-600 text-white w-8 h-8 flex items-center justify-center rounded-full mr-4">1</span>
             本人確認を完了する
           </h2>
@@ -29,8 +29,8 @@ export default function GuidePage() {
         </div>
 
         {/* ステップ2: 夢の投稿をする */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center">
+        <div className="space-y-3">
+          <h2 className="mt-12 text-2xl font-bold text-gray-800 flex items-center">
             <span className="bg-indigo-600 text-white w-8 h-8 flex items-center justify-center rounded-full mr-4">2</span>
             欲しい物の投稿をしよう
           </h2>
@@ -48,35 +48,35 @@ export default function GuidePage() {
             <li>「活動報告期間」を決めます。</li>
             <ul>
               <li>活動報告期間とは、物品を代理購入された日から、この日数の間は毎日今日の活動を報告するという約束です。</li>
-              <li>活動報告は必ずしも購入された物品と関連している必要はありません。例えば本を買ってもらったとしても、部活や友だちと遊んだ活動報告をしてもOKです。</li>
+              <li>活動報告は必ずしも購入された物品と関連している必要はありません。例えば本を買ってもらったとしても、本とは関係がない活動報告（部活の話や、家族、友だちと遊んだ話など）をしてもOKです。</li>
             </ul>
             <li>「報告頻度」も決めます。</li>
             <ul>
               <li>報告頻度とは、買ってもらった物品に直接関係する活動報告を、何日間に少なくとも一回は行うという約束です。</li>
-              <li>例えば本を買ってもらって、報告頻度を5日に設定した場合、本を読んだことの報告を最後にした時刻から数えて丸5日間が経過したとき、ルール違反として警告1回となります。</li>
+              <li>例えば報告頻度を5日に設定して本を買ってもらった場合、本を読んだことの報告を最後にした時刻から数えて丸5日間が経過したとき、ルール違反として警告1回となります。</li>
             </ul>
           </ul>
-          <Link href="/bright-first-step/application">
-            <button className="px-6 py-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition">
+          <Link href="/bright-first-step/application" target="_blank" rel="noopener noreferrer">
+            <button className="px-6 py-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition cursor-pointer">
               新しい投稿を作成する
             </button>
           </Link>
         </div>
 
         {/* ステップ3: 活動報告の義務 */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center">
+        <div className="space-y-3">
+          <h2 className="mt-12 text-2xl font-bold text-gray-800 flex items-center">
             <span className="bg-indigo-600 text-white w-8 h-8 flex items-center justify-center rounded-full mr-4">3</span>
             活動報告を続けよう
           </h2>
           <p className="text-gray-700">
-            支援を受けると、毎日報告をする義務が発生します。
+            物が贈られると、毎日報告をする義務が発生します。
             あなたの活動が支援者の「応援してよかった」という気持ちにつながります。
           </p>
           <ul className="list-disc list-inside text-gray-700">
-            <li>**毎日1回以上**の活動報告が必要です。</li>
+            <li>毎日1回以上の活動報告が必要です。</li>
             <ul>
-              <li>活動報告は必ずしも購入された物品と関連している必要はありません。例えば本を買ってもらったとしても、部活や友だちと遊んだ活動報告をしてもOKです。</li>
+              <li>活動報告は必ずしも購入された物品と関連している必要はありません。例えば本を買ってもらったとしても、本とは関係がない活動報告（部活の話や、家族、友だちと遊んだ話など）をしてもOKです。</li>
             </ul>
             <li>報告頻度も守りましょう。</li>
             <ul>
@@ -84,8 +84,8 @@ export default function GuidePage() {
               <li>例えば本を買ってもらって、報告頻度を5日に設定した場合、本を読んだことの報告を最後にした時刻から数えて丸5日間が経過したとき、ルール違反として警告1回となります。</li>
             </ul>
           </ul>
-          <Link href="/activity-report/post">
-            <button className="px-6 py-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition">
+          <Link href="/activity-report/post" target="_blank" rel="noopener noreferrer">
+            <button className="px-6 py-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition cursor-pointer">
               活動報告をする
             </button>
           </Link>
