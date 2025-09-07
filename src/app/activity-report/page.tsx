@@ -132,8 +132,10 @@ export default async function MyActivityReportsPage() {
               </div>
               <p className="text-gray-700 mb-4 whitespace-pre-wrap">{report.reportText}</p>
 
-              {report.relatedApplicationIds && report.relatedApplicationIds.length > 0 && (
-                <div className="mt-3">
+              {report.relatedApplicationIds && 
+                report.relatedApplicationIds.length > 0 && 
+                report.relatedApplicationsInfo && 
+                (<div className="mt-3">
                   <p className="text-sm font-medium text-gray-600 mb-1">関連する応援:</p>
                   <div className="flex flex-wrap gap-2">
                     {report.relatedApplicationsInfo.map((info, index) => {
