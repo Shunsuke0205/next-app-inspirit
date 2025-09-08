@@ -21,16 +21,16 @@ const StudentHomePage = () => {
       </p>
 
       {/* 主要機能へのナビゲーションカード */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl px-4">
+      <div className="grid grid-cols-1 gap-6 w-full max-w-2xl px-4">
         {/* 夢の投稿ページへのリンクカード */}
         <Link href="/bright-first-step/application" className="block">
           <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out p-6 sm:p-8 flex flex-col items-center border-b-4 border-indigo-500">
             <svg className="w-12 h-12 text-indigo-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">新しい夢を投稿する</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">「今欲しい物」を投稿する</h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              活動に必要な物品を募るための、あなたの「偉大な最初の一歩」はここで投稿します。
+              自分の活動に必要な物品を、Amazon欲しいものリストとともに投稿できます。
             </p>
           </div>
         </Link>
@@ -43,7 +43,7 @@ const StudentHomePage = () => {
             </svg>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">自分の投稿一覧</h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              これまでに投稿した投稿を確認・管理できます。
+              自分の「ほしい物品の投稿」を確認・管理できます。
             </p>
           </div>
         </Link>
@@ -56,8 +56,8 @@ const StudentHomePage = () => {
             </svg>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">活動報告を行う</h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              応援してくださった方へ、日々の活動報告を投稿し、進捗や成果、成長をお伝えしましょう。
-              また、これまでに投稿した活動報告の履歴を確認できます。
+              あなたの活動が応援者の「買ってよかった」という気持ちにつながります。
+              また、継続的な活動報告はあなたの努力の証明となり、次の代理購入のための信頼になります。
             </p>
           </div>
         </Link>
