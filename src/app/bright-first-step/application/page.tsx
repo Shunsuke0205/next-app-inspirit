@@ -63,11 +63,11 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
   const [formData, setFormData] = useState({
     title: "",
     item_description: "",
-    item_price: 0,
-    requested_amount: 0,
+    item_price: 500,
+    requested_amount: 500,
     enthusiasm: "",
     long_term_goal: "",
-    amazon_wishlist_url: null,
+    amazon_wishlist_url: "",
     entire_report_period_days: 31,
     report_interval_days: 31,
   });
@@ -122,10 +122,10 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           title: formData.title,
           item_description: formData.item_description,
           item_price: formData.item_price,
-          requested_amount: formData.requested_amount,
+          requested_amount: formData.item_price, // requested_amountはitem_priceと同じ金額に固定
           enthusiasm: formData.enthusiasm,
           long_term_goal: formData.long_term_goal,
-          amazon_wishlist_url: formData.amazon_wishlist_url || null, // 空文字列の場合はNULLとして送信
+          amazon_wishlist_url: formData.amazon_wishlist_url,
           entire_report_period_days: formData.entire_report_period_days,
           report_interval_days: formData.report_interval_days,
           status: "active"
@@ -199,7 +199,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
           />
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="requested_amount" className="block text-sm font-medium text-gray-700">
             希望する支援金額 (円) <span className="text-red-500">*</span>
           </label>
@@ -217,7 +217,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           {formData.requested_amount > formData.item_price && (
             <p className="text-red-600 text-xs mt-1">希望支援額は物品の合計金額以下にしてください。</p>
           )}
-        </div>
+        </div> */}
       </div>
 
       <div>
@@ -301,7 +301,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           onChange={handleChange}
           required
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-          placeholder="例: https://www.amazon.co.jp/hz/wishlist/ls/..."
+          placeholder="例: https://www.amazon.jp/hz/wishlist/ls/..."
         />
       </div>
 
