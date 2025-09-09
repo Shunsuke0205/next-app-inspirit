@@ -79,6 +79,14 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
   // 成功メッセージ
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
 
+  // 許可するAmazonのドメインリスト
+  const ALLOWED_AMAZON_DOMAINS = [
+    "www.amazon.co.jp",
+    "amazon.co.jp",
+    "www.amazon.com",
+    "amazon.com",
+  ];
+
   // 入力フィールドの変更ハンドラ
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -98,6 +106,12 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
     try {
       if (!userId) {
         throw new Error("ユーザーIDが取得できません。ログインし直してください。");
+      }
+
+      const url = new URL(formData.amazon_wishlist_url);
+      // ドメインが許可リストに含まれているかチェック
+      if (!ALLOWED_AMAZON_DOMAINS.includes(url.hostname)) {
+        throw new Error("申し訳ありませんが、AmazonのURLが正しくないようです。");
       }
 
       const supabase = createClient();
