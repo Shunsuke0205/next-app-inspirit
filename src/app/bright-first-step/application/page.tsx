@@ -151,7 +151,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-2xl mx-auto bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">意気込みを投稿する</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">欲しい物品を投稿する</h2>
 
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
@@ -186,7 +186,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="item_price" className="block text-sm font-medium text-gray-700">
-            物品の合計金額 (円) <span className="text-red-500">*</span>
+            その物品の金額 (円) <span className="text-red-500">*</span>
           </label>
           <input
             type="number"
@@ -253,7 +253,8 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label htmlFor="entire_report_period_days" className="block text-sm font-medium text-gray-700">
-            この活動を終えるまでの、活動報告を行う期間（日数）<span className="text-red-500">*</span>
+            物を受け取ってから活動報告を行う期間 <span className="text-red-500">*</span><br />
+            （日数）
           </label>
           <input
             type="number"
@@ -271,7 +272,8 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
         </div>
         <div>
           <label htmlFor="report_interval_days" className="block text-sm font-medium text-gray-700">
-            この支援の報告頻度（X日ごと）<span className="text-red-500">*</span>
+            この物品に関係する活動の報告頻度 <span className="text-red-500">*</span><br />
+            （X日以上怠ると警告がつきます）
           </label>
           <input
             type="number"
