@@ -23,7 +23,7 @@ export default function GuidePage() {
             安全なプラットフォームを保つため、全ての高校生に本人確認をお願いしています。
             確認が完了すると、あなたの投稿には「認証マーク」がつき、投稿が可能になります。
           </p>
-          <ul className="list-disc list-inside text-gray-700">
+          <ul className="list-disc list-outside text-gray-700">
             <li>本人確認が完了すると、日々の活動報告を管理するダミーの記録が自動で作成されます。</li>
           </ul>
         </div>
@@ -38,20 +38,20 @@ export default function GuidePage() {
             あなたの欲しい物を、支援者に伝わるように具体的に投稿しましょう。
             希望する物品の金額や、それを手に入れたあとの活動への意気込みを詳しく書くのがポイントです。
           </p>
-          <ul className="list-disc list-inside text-gray-700">
+          <ul className="list-disc list-outside text-gray-700">
             <li>投稿できるのは、本人確認が済んだ高校生のアカウントのみです。</li>
             <li>応援者があなたの欲しい物を代理購入するために、「Amazonの欲しいものリスト機能」を使います。</li>
-            <ul className="list-[circle] list-inside ml-8">
+            <ul className="list-[circle] list-outside ml-8">
               <li className="font-bold">「Amazon　欲しいものリスト　匿名　作り方」などとネット検索をして、AmazonのURLを作ってください。</li>
               <li>このとき、自分の本名が公開されないよう十分注意してください！</li>
             </ul>
             <li>「活動報告期間」を決めます。</li>
-            <ul className="list-[circle] list-inside ml-8">
+            <ul className="list-[circle] list-outside ml-8">
               <li>活動報告期間とは、物品を代理購入された日から、この日数の間は毎日今日の活動を報告するという約束です。</li>
               <li>活動報告は必ずしも購入された物品と関連している必要はありません。例えば本を買ってもらったとしても、本とは関係がない活動報告（部活の話や、家族、友だちと遊んだ話など）をしてもOKです。</li>
             </ul>
             <li>「報告頻度」も決めます。</li>
-            <ul className="list-[circle] list-inside ml-8">
+            <ul className="list-[circle] list-outside ml-8">
               <li>報告頻度とは、買ってもらった物品に直接関係する活動報告を、何日間に少なくとも一回は行うという約束です。</li>
               <li>例えば報告頻度を5日に設定して本を買ってもらった場合、本を読んだことの報告を最後にした時刻から数えて丸5日間が経過したとき、ルール違反として警告1回となります。</li>
             </ul>
@@ -74,13 +74,13 @@ export default function GuidePage() {
             あなたの活動が応援者の「買ってよかった」という気持ちにつながります。
             また、継続的な活動報告はあなたの努力の証明となり、次の代理購入のための信頼になります。
           </p>
-          <ul className="list-disc list-inside text-gray-700">
+          <ul className="list-disc list-outside text-gray-700">
             <li>毎日1回以上の活動報告が必要です。</li>
-            <ul className="list-[circle] list-inside ml-8">
+            <ul className="list-[circle] list-outside ml-8">
               <li>活動報告は必ずしも購入された物品と関連している必要はありません。例えば本を買ってもらったとしても、本とは関係がない活動報告（部活の話や、家族、友だちと遊んだ話など）をしてもOKです。</li>
             </ul>
             <li>報告頻度も守りましょう。</li>
-            <ul className="list-[circle] list-inside ml-8">
+            <ul className="list-[circle] list-outside ml-8">
               <li>報告頻度とは、買ってもらった物品に直接関係する活動報告を、何日間に少なくとも一回は行うという約束です。</li>
               <li>例えば本を買ってもらって、報告頻度を5日に設定した場合、本を読んだことの報告を最後にした時刻から数えて丸5日間が経過したとき、ルール違反として警告1回となります。</li>
             </ul>
