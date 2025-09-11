@@ -8,8 +8,6 @@ export default function SignupPage() {
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-800">新規登録</h1>
 
-        <TroubleshootingGuide />
-
         {/* サインアップフォーム */}
         <form className="space-y-4">
           <div>
@@ -43,6 +41,10 @@ export default function SignupPage() {
             新規登録
           </button>
         </form>
+
+        <div className="mt-16">
+          <TroubleshootingGuide />
+        </div>
 
         {/* ログインへの案内 */}
         <div className="mt-14">
