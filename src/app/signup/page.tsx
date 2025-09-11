@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { signup } from '../login/actions'
+import TroubleshootingGuide from './TroubleshootingGuide';
 
 export default function SignupPage() {
   return (
@@ -7,6 +8,7 @@ export default function SignupPage() {
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-800">新規登録</h1>
 
+        <TroubleshootingGuide />
 
         {/* サインアップフォーム */}
         <form className="space-y-4">
