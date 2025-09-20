@@ -293,7 +293,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
 
       <div>
         <label htmlFor="amazon_wishlist_url" className="block text-sm font-medium text-gray-700">
-          Amazonの欲しい物リストURL（任意）<span className="text-red-500">*</span>
+          Amazonの欲しい物リストURL<span className="text-red-500">*</span>
         </label>
         <input
           type="url"
