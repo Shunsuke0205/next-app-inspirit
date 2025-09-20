@@ -68,8 +68,8 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
     enthusiasm: "",
     long_term_goal: "",
     amazon_wishlist_url: "",
-    entire_report_period_days: 31,
-    report_interval_days: 31,
+    entire_report_period_days: 4,
+    report_interval_days: 4,
   });
 
   // フォーム送信中の状態
@@ -127,7 +127,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           long_term_goal: formData.long_term_goal,
           amazon_wishlist_url: formData.amazon_wishlist_url,
           entire_report_period_days: formData.entire_report_period_days,
-          report_interval_days: formData.report_interval_days,
+          report_interval_days: formData.entire_report_period_days,
           status: "active"
           // created_at, status, is_deleted, last_reported_at はDBのデフォルト値またはSupabaseで自動設定
           // last_reported_at は null で挿入される
@@ -222,7 +222,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
 
       <div>
         <label htmlFor="enthusiasm" className="block text-sm font-medium text-gray-700">
-          活動に対する意気込み <span className="text-red-500">*</span>
+          活動に対する意気込み（任意）{/* <span className="text-red-500">*</span> */}
         </label>
         <textarea
           id="enthusiasm"
@@ -230,14 +230,14 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           value={formData.enthusiasm}
           onChange={handleChange}
           rows={4}
-          required
+          // required
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
         ></textarea>
       </div>
 
       <div>
         <label htmlFor="long_term_goal" className="block text-sm font-medium text-gray-700">
-          長期的な夢や目標 <span className="text-red-500">*</span>
+          長期的な夢や目標（任意）{/* <span className="text-red-500">*</span> */}
         </label>
         <textarea
           id="long_term_goal"
@@ -245,7 +245,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           value={formData.long_term_goal}
           onChange={handleChange}
           rows={2}
-          required
+          // required
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
         ></textarea>
       </div>
@@ -270,7 +270,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
             この期間中、毎日1回以上の活動報告を行う義務が発生します。
           </p>
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="report_interval_days" className="block text-sm font-medium text-gray-700">
             この物品に関係する活動の報告頻度 <span className="text-red-500">*</span><br />
             （X日以上怠ると警告がつきます）
@@ -288,7 +288,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           <p className="text-xs text-gray-500 mt-1">
             この申請に関する活動報告をX日間に1回以上行うと宣言します。
           </p>
-        </div>
+        </div> */}
       </div>
 
       <div>
@@ -350,8 +350,6 @@ const Page = () => {
 
   return (
     <div>
-      <h1>偉大な最初の一歩を踏み出しましょう！</h1>
-      <p>あなたの夢や目標を投稿して、支援を募りましょう。</p>
       <ApplicationForm userId={userId} />
     </div>
   );
