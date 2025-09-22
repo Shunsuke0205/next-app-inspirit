@@ -81,6 +81,8 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
 
   // 許可するAmazonのドメインリスト
   const ALLOWED_AMAZON_DOMAINS = [
+    "www.amazon.jp",
+    "amazon.jp",
     "www.amazon.co.jp",
     "amazon.co.jp",
     "www.amazon.com",
