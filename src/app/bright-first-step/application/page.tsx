@@ -92,10 +92,19 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
   // 入力フィールドの変更ハンドラ
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "number" ? Number(value) : value,
-    }));
+
+    if (type === "number") {
+      const numValue = value === "" ? "" : Number(value);
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: numValue,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   // フォーム送信ハンドラ
