@@ -15,10 +15,21 @@ export async function login(formData: FormData) {
     password: formData.get('password') as string,
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+  const { data: authData, error: authError } = await supabase.auth.signInWithPassword(data)
 
-  if (error) {
+  if (authError) {
     redirect('/error')
+  }
+
+  const { error: updateError } = await supabase
+    .from('student_profiles_private')
+    .update({
+      last_login_at: new Date().toISOString()
+    })
+    .eq('user_id', authData.user.id)
+
+  if (updateError) {
+    console.error("Failed to update last_login_at:", updateError);
   }
 
   revalidatePath('/', 'layout')
