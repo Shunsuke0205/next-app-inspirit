@@ -8,6 +8,19 @@ const Header = async () => {
   const { data: userData, error: userError } = await supabase.auth.getUser();
   const isLoggedIn = !userError && (userData?.user !== null);
 
+  if (userError) {
+    console.error("Error fetching user data:", userError.message);
+  } else {
+    const { data: rcpData, error: rpcError } = await supabase.rpc(
+      'update_last_login_if_needed',
+      { user_id_in: userData.user.id }
+    );
+
+    if (rpcError) {
+        console.error("Failed to update last login via RPC:", rpcError);
+    }
+  }
+
   return (
     <header className="py-4 border-b border-gray-300 flex justify-between items-center ">
       <Link
