@@ -22,6 +22,20 @@ const StudentHomePage = () => {
 
       {/* 主要機能へのナビゲーションカード */}
       <div className="grid grid-cols-1 gap-6 w-full max-w-2xl px-4">
+        {/* 活動報告の投稿ページへのリンクカード */}
+        <Link href="/activity-report" className="block">
+          <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out p-6 sm:p-8 flex flex-col items-center border-b-4 border-emerald-500">
+            <svg className="w-12 h-12 text-emerald-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">活動報告を行う</h2>
+            <p className="text-gray-600 text-sm sm:text-base">
+              あなたの活動が応援者の「買ってよかった」という気持ちにつながります。
+              また、継続的な活動報告はあなたの努力の証明となり、次の代理購入のための信頼になります。
+            </p>
+          </div>
+        </Link>
+
         {/* 夢の投稿ページへのリンクカード */}
         <Link href="/bright-first-step/application" className="block">
           <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out p-6 sm:p-8 flex flex-col items-center border-b-4 border-indigo-500">
@@ -44,20 +58,6 @@ const StudentHomePage = () => {
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">自分の投稿一覧</h2>
             <p className="text-gray-600 text-sm sm:text-base">
               自分の「ほしい物品の投稿」を確認・管理できます。
-            </p>
-          </div>
-        </Link>
-
-        {/* 活動報告の投稿ページへのリンクカード */}
-        <Link href="/activity-report" className="block">
-          <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out p-6 sm:p-8 flex flex-col items-center border-b-4 border-emerald-500">
-            <svg className="w-12 h-12 text-emerald-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-            </svg>
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">活動報告を行う</h2>
-            <p className="text-gray-600 text-sm sm:text-base">
-              あなたの活動が応援者の「買ってよかった」という気持ちにつながります。
-              また、継続的な活動報告はあなたの努力の証明となり、次の代理購入のための信頼になります。
             </p>
           </div>
         </Link>
