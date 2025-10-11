@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import React from "react";
 import CommitmentButton from "./commitmentButton";
-import { getJstCommitDate } from "./actions";
+import { getJstCommitDate } from "./jstDateUtils";
 import { redirect } from "next/navigation";
 
 
