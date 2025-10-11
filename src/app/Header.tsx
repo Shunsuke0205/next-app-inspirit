@@ -11,13 +11,13 @@ const Header = async () => {
   if (userError) {
     console.error("Error fetching user data:", userError.message);
   } else {
-    const { data: rcpData, error: rpcError } = await supabase.rpc(
+    const { error: rpcError } = await supabase.rpc(
       'update_last_login_if_needed',
       { user_id_in: userData.user.id }
     );
 
     if (rpcError) {
-        console.error("Failed to update last login via RPC:", rpcError);
+      console.error("Failed to update last login via RPC:", rpcError);
     }
   }
 
