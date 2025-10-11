@@ -10,7 +10,7 @@ interface ReportingActivities {
   status: string | null; // active, reporting, completed など
 }
 
-const useAuthorization = () => {
+const userAuthorization = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -233,7 +233,7 @@ export const ActivityReportForm: React.FC<{ userId: string }> = ({ userId }) => 
 
 // ページのメインコンポーネント
 const Page = () => {
-  const { userId, isAuthorized, isLoading, error } = useAuthorization();
+  const { userId, isAuthorized, isLoading, error } = userAuthorization();
 
   if (isLoading) {
     return (
