@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import React from "react";
 import CommitmentButton from "./commitmentButton";
 import { getJstCommitDate } from "./actions";
+import { redirect } from "next/navigation";
 
 
 export default async function CommitmentButtonList({ applications } : { applications: { id: string; title: string }[] }) {
@@ -10,7 +11,7 @@ export default async function CommitmentButtonList({ applications } : { applicat
 
   if (userError || !userData?.user) {
     console.error("Error fetching user:", userError);
-    return <div>申し訳ございません。ユーザの情報を取得できませんでした</div>;
+    redirect("/login");
   }
 
   const userId = userData.user.id;

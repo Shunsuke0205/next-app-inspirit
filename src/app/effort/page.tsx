@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { CommitmentType } from "./actions";
 import { createClient } from "@/utils/supabase/server";
 import CommitmentButtonList from "./commitmentButtonList";
+import { redirect } from "next/navigation";
 
 
 // コミットカレンダーデータの型
@@ -39,7 +39,7 @@ export default async function MyActivityReportsPage() {
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData?.user) {
     console.error("User not authenticated:", userError?.message);
-    <p className="text-red-500">申し訳ありません。まずはログインをお願いいたします。</p>;
+    redirect("/login");
   }
 
   const userId = userData.user?.id;
