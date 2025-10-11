@@ -1,17 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import React from "react";
 import CommitmentButton from "./commitmentButton";
+import { getJstCommitDate } from "./actions";
 
-function getJstCommitDate(): string {
-  const now = new Date();
-  const jstTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
-  const shiftedTime = new Date(jstTime);
-  // Subtract 4 hours to shift the cut-off time to 4 AM JST (19:00 UTC previous day)
-  shiftedTime.setHours(jstTime.getHours() - 4);
-  
-  // Format as "YYYY-MM-DD"
-  return shiftedTime.toISOString().substring(0, 10);
-}
 
 export default async function CommitmentButtonList({ applications } : { applications: { id: string; title: string }[] }) {
   const supabase = await createClient();

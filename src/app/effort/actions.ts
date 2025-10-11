@@ -16,7 +16,7 @@ type CommitmentResult = {
  * Helper function to calculate the "activity date" based on JST 4:00 AM cut-off.
  * This must match the logic in the database trigger (set_jst_committed_date).
  */
-function getJstCommitDate(): string {
+export function getJstCommitDate(): string {
   const now = new Date();
   const jstTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
   const shiftedTime = new Date(jstTime);
