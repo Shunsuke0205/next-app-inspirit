@@ -4,7 +4,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
-type CommitmentType = "touched" | "completed" | "potential_miss";
+export type CommitmentType = "touched" | "completed" | "potential_miss";
 
 type CommitmentResult = {
   success: boolean;
