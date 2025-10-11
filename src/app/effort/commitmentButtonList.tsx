@@ -26,14 +26,14 @@ export default async function CommitmentButtonList({ applications } : { applicat
     return <div>申し訳ございません。今日のコミットメント情報を取得できませんでした</div>;
   }
 
-  console.log("Today's Commitments Data:", todayCommitmentsData);
+  // console.log("Today's Commitments Data:", todayCommitmentsData);
 
-  const toCommitmentCounts = applications.filter(app => !todayCommitmentsData?.some(c => c.application_id === app.id)).length;
+  const toCommitCount = applications.filter(app => !todayCommitmentsData?.some(c => c.application_id === app.id)).length;
 
   return (
     <div>
       <div className="p-5 bg-white shadow-xl rounded-xl space-y-5 border-t-4 border-indigo-500">
-        <h2 className="text-xl font-bold text-gray-700">本日報告すべき商品 ({toCommitmentCounts} 件)</h2>
+        <h2 className="text-xl font-bold text-gray-700">本日報告すべき商品 ({toCommitCount} 件)</h2>
       </div>
 
 
@@ -51,6 +51,10 @@ export default async function CommitmentButtonList({ applications } : { applicat
           </div>
         );
       })}
+      
+      {toCommitCount === 0 && (
+        <p className="text-center text-gray-500 pt-4">素晴らしいですね！　今日の報告はすべて完了しています。🙌🏻</p>
+      )}
     </div>
   );
 };
