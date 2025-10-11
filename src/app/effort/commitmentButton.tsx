@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { CommitmentType, recordCommitment } from "./actions";
 
 type Application = {
@@ -12,16 +12,16 @@ type Application = {
 
 
 const CommitmentButton = ({ application } : { application: Application }) => {
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  // const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const handleCommitment = async (applicationId: string, type: CommitmentType) => {
-    const { success, error } = await recordCommitment(applicationId, type);
+    const { error } = await recordCommitment(applicationId, type);
     if (error) {
       console.error("Error recording commitment:", error);
-      setStatusMessage("コミットメントの記録に失敗しました。もう一度お試しください。");
+      // setStatusMessage("コミットメントの記録に失敗しました。もう一度お試しください。");
       return;
     }
-    setStatusMessage(`Committed as ${type} for application ${applicationId}`);
+    // setStatusMessage(`Committed as ${type} for application ${applicationId}`);
   }
 
   // 現在の報告タイプを取得
