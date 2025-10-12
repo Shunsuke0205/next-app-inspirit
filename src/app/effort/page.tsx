@@ -161,21 +161,6 @@ export default async function MyActivityReportsPage() {
 
 
 
-{/* 
-        {statusMessage && (
-            <div className="p-3 bg-green-100 text-green-700 rounded-md border border-green-300 animate-pulse">
-                {statusMessage}
-            </div>
-        )}
-
-
-
-        {allReportsCompleted && (
-            <p className="text-center text-green-600 pt-4 font-semibold">
-                本日分の報告は全て完了しました！お疲れ様です。
-            </p>
-        )}
- */}
 
 
 
