@@ -100,7 +100,7 @@ export default async function MyActivityReportsPage() {
     console.error("Error fetching reporting applications:", reportingApplicationError?.message);
   }
 
-  console.log("reportingApplicationData:", reportingApplicationData);
+  // console.log("reportingApplicationData:", reportingApplicationData);
   
   if (reportingApplicationData && reportingApplicationData.length === 0) {
     console.log("No reporting applications found.");
