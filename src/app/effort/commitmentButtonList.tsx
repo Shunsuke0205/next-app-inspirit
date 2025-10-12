@@ -5,7 +5,7 @@ import { getJstCommitDate } from "./jstDateUtils";
 import { redirect } from "next/navigation";
 
 
-export default async function CommitmentButtonList({ applications } : { applications: { id: string; title: string }[] }) {
+export default async function CommitmentButtonList({ applications } : { applications: { id: string; item_name: string }[] }) {
   const supabase = await createClient();
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
@@ -32,7 +32,7 @@ export default async function CommitmentButtonList({ applications } : { applicat
 
   return (
     <div>
-      <div className="p-5 bg-white shadow-xl rounded-xl space-y-5 border-t-4 border-indigo-500">
+      <div className="mb-6 p-5 bg-white shadow-xl rounded-xl space-y-5 border-t-4 border-indigo-500">
         <h2 className="text-xl font-bold text-gray-700">本日報告すべき商品 ({toCommitCount} 件)</h2>
       </div>
 
@@ -45,7 +45,7 @@ export default async function CommitmentButtonList({ applications } : { applicat
           <div key={app.id} className="mb-6 last:mb-0">
             <CommitmentButton application={{
               id: app.id,
-              title: app.title,
+              itemName: app.item_name,
               commitmentType: todayCommitmentsData?.find(c => c.application_id === app.id)?.commitment_type || null
             }} />
           </div>

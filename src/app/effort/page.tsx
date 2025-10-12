@@ -87,7 +87,7 @@ export default async function EffortPage() {
 
   const { data: reportingApplicationData, error: reportingApplicationError } = await supabase
     .from("scholarship_applications")
-    .select("id, title")
+    .select("id, item_name")
     .eq("user_id", userId)
     .eq("status", "reporting");
 

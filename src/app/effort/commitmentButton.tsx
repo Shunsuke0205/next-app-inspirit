@@ -5,7 +5,7 @@ import { CommitmentType, recordCommitment } from "./actions";
 
 type Application = {
   id: string;
-  title: string;
+  itemName: string;
   commitmentType: CommitmentType | null;
 };
 
@@ -31,7 +31,7 @@ const CommitmentButton = ({ application } : { application: Application }) => {
 
   return (
     <div key={application.id} className="border-b pb-4 last:border-b-0 last:pb-0">
-      <h3 className="font-semibold text-gray-800 text-base mb-3">{application.title}</h3>
+      <h3 className="font-semibold text-gray-800 text-base mb-3">{application.itemName}</h3>
 
       {/* ⚠️ 仮報告状態の表示 */}
       <p className="text-xs font-medium text-red-500 mb-2">
