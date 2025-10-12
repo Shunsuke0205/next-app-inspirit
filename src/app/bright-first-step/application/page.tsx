@@ -62,6 +62,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
   // フォームの入力値を管理するstate
   const [formData, setFormData] = useState({
     title: "",
+    item_name: "",
     item_description: "",
     item_price: 500,
     requested_amount: 500,
@@ -131,6 +132,7 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
         .insert({
           user_id: userId,
           title: formData.title,
+          item_name: formData.item_name,
           item_description: formData.item_description,
           item_price: formData.item_price,
           requested_amount: formData.item_price, // requested_amountはitem_priceと同じ金額に固定
@@ -177,6 +179,21 @@ const ApplicationForm: React.FC<{ userId: string | null }> = ({ userId }) => {
           required
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
         />
+      </div>
+
+      <div>
+        <label htmlFor="item_name" className="block text-sm font-medium text-gray-700">
+          欲しい物品の簡潔な名称 <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          id="item_name"
+          name="item_name"
+          value={formData.item_name}
+          onChange={handleChange}
+          rows={1}
+          required
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+        ></textarea>
       </div>
 
       <div>
