@@ -13,6 +13,10 @@ type CommitData = {
 
 
 const SAMPLE_COMMIT_HISTORY: CommitData[] = [
+    { date: "2025-09-27", count: 1 },
+    { date: "2025-09-28", count: 1 },
+    { date: "2025-09-29", count: 1 },
+    { date: "2025-09-30", count: 1 },
     { date: "2025-10-01", count: 1 },
     { date: "2025-10-02", count: 2 },
     { date: "2025-10-04", count: 2 },
@@ -25,6 +29,7 @@ const SAMPLE_COMMIT_HISTORY: CommitData[] = [
     { date: "2025-10-11", count: 1 },
     { date: "2025-10-12", count: 1 },
     { date: "2025-10-13", count: 1 },
+    { date: "2025-10-14", count: 1 },
 ];
 
 
