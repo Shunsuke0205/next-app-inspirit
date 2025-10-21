@@ -30,7 +30,7 @@ async function fetchCommitmentHistory(userId: string, days: number) {
     commit_date: string;
     commit_count: number;
   };
-  return new Map<string, number>(data.map((item: CommitCountRecord) => [item.commit_date, Number(item.commit_count)]));
+  return new Map<string, number>(data.map((item: CommitCountRecord) => [item.commit_date, item.commit_count]));
 }
 
 export default async function EffortPage() {
@@ -42,7 +42,7 @@ export default async function EffortPage() {
     redirect("/login");
   }
 
-  const userId = userData.user?.id;
+  const userId = userData.user.id;
 
   {
     const { data: studentAuthData, error: studentAuthError } = await supabase
