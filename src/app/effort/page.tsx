@@ -3,34 +3,9 @@ import { createClient } from "@/utils/supabase/server";
 import CommitmentButtonList from "./commitmentButtonList";
 import { redirect } from "next/navigation";
 import CommitmentCalendar from "./commitmentCalendar";
+import { getJstCommitDate } from "./jstDateUtils";
+import { get } from "http";
 
-
-type CommitData = {
-  date: string; 
-  count: number;
-};
-
-
-
-const SAMPLE_COMMIT_HISTORY: CommitData[] = [
-    { date: "2025-09-27", count: 1 },
-    { date: "2025-09-28", count: 1 },
-    { date: "2025-09-29", count: 1 },
-    { date: "2025-09-30", count: 1 },
-    { date: "2025-10-01", count: 1 },
-    { date: "2025-10-02", count: 2 },
-    { date: "2025-10-04", count: 2 },
-    { date: "2025-10-05", count: 2 },
-    { date: "2025-10-06", count: 2 },
-    { date: "2025-10-07", count: 2 },
-    { date: "2025-10-08", count: 1 },
-    { date: "2025-10-09", count: 1 },
-    { date: "2025-10-10", count: 1 },
-    { date: "2025-10-11", count: 1 },
-    { date: "2025-10-12", count: 1 },
-    { date: "2025-10-13", count: 1 },
-    { date: "2025-10-14", count: 1 },
-];
 
 
 export default async function EffortPage() {
@@ -106,7 +81,51 @@ export default async function EffortPage() {
     console.log("No reporting applications found.");
   }
 
+  const { data: commitmentDatesData, error: commitmentDatesError } = await supabase
+    .from("student_commitments")
+    .select("committed_date_jst")
+    .eq("user_id", userId)
+    .order("committed_date_jst", { ascending: false })
+    .limit(300);
 
+  if (commitmentDatesError) {
+    console.error("Error fetching commitment dates:", commitmentDatesError?.message);
+  }
+  console.log("commitmentDatesData:", commitmentDatesData);
+
+  const commitmentDateMap = await fetchCommitmentHistory(userId, 7 * 6);
+  
+
+  
+  async function fetchCommitmentHistory(userId: string, days: number) {
+    const supabase = await createClient();
+
+    const endDate = new Date(getJstCommitDate());
+    const startDate = new Date(endDate);
+    startDate.setDate(startDate.getDate() - days); // 指定された日数前に設定
+    endDate.setDate(endDate.getDate() + 1); // end_date_in は排他的なので1日追加
+    const startDateStr = startDate.toISOString().substring(0, 10);
+    const endDateStr = endDate.toISOString().substring(0, 10);
+
+    // RPC関数を呼び出し、日ごとのコミットメント数を取得
+    // 注意: RPCはサーバーサイドで await して呼び出します
+    const { data, error } = await supabase.rpc('get_daily_commitment_counts', {
+      user_id_in: userId,
+      start_date_in: startDateStr,
+      end_date_in: endDateStr,
+    });
+
+    if (error) {
+      console.error("Error fetching commit counts:", error.message);
+      return new Map<string, number>(); // エラー時は空のMapを返す
+    }
+
+    type CommitCountRecord = {
+      commit_date: string;
+      commit_count: number;
+    };
+    return new Map<string, number>(data.map((item: CommitCountRecord) => [item.commit_date, Number(item.commit_count)]));
+  }
 
   return (
     <div className="container mx-auto p-4 max-w-xl space-y-8">
@@ -137,7 +156,7 @@ export default async function EffortPage() {
             <span className="text-xs text-gray-600">未アクセス/未報告</span>
           </div>
         </div>
-        <CommitmentCalendar commitMap={new Map(SAMPLE_COMMIT_HISTORY.map(item => [item.date, item.count]))} />
+        <CommitmentCalendar commitMap={commitmentDateMap} />
       </div>
       
     </div>
