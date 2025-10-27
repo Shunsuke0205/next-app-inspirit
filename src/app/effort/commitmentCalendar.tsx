@@ -1,7 +1,8 @@
 import React from "react";
+import { getJstCommitDate } from "./jstDateUtils";
 
 const CommitmentCalendar = ({ commitMap } : { commitMap: Map<string, number> }) => {
-  const TODAY = new Date();
+  const TODAY = new Date(getJstCommitDate());
   // let nextMonday = new Date(TODAY);
   // nextMonday.setDate(TODAY.getDate() + (8 - TODAY.getDay()) % 7);
   // console.log("Next Monday:", nextMonday.toISOString().substring(0, 10));
@@ -76,14 +77,19 @@ const CommitmentCalendar = ({ commitMap } : { commitMap: Map<string, number> }) 
             </div>
             
             {/* 曜日のコミットマス */}
-            {week.map((dayData, dayIndex) => (
-              <div key={dayIndex} className="flex justify-center items-center">
-                <div 
-                  title={`${dayData.dateStr}: ${(dayData.count !== undefined && dayData.count > 0) ? `${dayData.count} commits` : "No commit"}`}
-                  className={`w-4 h-4 rounded-sm transition-colors ${dayData.colorClass}`}
-                ></div>
-              </div>
-            ))}
+            {week.map((dayData, dayIndex) => {
+              const isToday = dayData.dateStr === getJstCommitDate();
+              const todayHighlightClass = isToday ? "ring-2 ring-indigo-600 ring-offset-1" : "";
+              const tooltipText = `${dayData.dateStr}: ${(dayData.count !== undefined && dayData.count > 0) ? `${dayData.count} commits` : "No commit"}`;
+              return (
+                <div key={dayIndex} className="flex justify-center items-center">
+                  <div 
+                    title={tooltipText}
+                    className={`w-4 h-4 rounded-sm transition-colors ${todayHighlightClass} ${dayData.colorClass}`}
+                  ></div>
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>
