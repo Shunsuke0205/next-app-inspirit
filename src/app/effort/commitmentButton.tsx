@@ -69,10 +69,7 @@ const CommitmentButton = ({ application } : { application: Application }) => {
 
       {/* ⚠️ 仮報告状態の表示 */}
       <p className="text-xs font-medium text-red-500 mb-2">
-        {/* {isPotentialMiss
-          ? "⚠️ 「触れないかも」と仮報告済みなので、「触れた」に上書き可能です。" 
-          : "今日はまだ報告していません。"} */}
-        {isPotentialMiss && "⚠️ 「触れないかも」と仮報告済みなので、「触れた」に上書き可能です。"}
+        {isPotentialMiss && "「触れないかも」と仮報告済みなので、「触れた」に更新できます。"}
       </p>
       {statusMessage && (
         <p>
