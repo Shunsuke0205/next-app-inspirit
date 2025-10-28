@@ -25,21 +25,17 @@ const CommitmentCalendar = ({ commitMap } : { commitMap: Map<string, number> }) 
 
     let colorClass = "bg-gray-100 border border-gray-400"; // default
 
-    if (count !== undefined) {
-      const isToday = (i === 0);
-      if (isToday) {
-        if (count > 0) {
-          colorClass = "rainbow-animate";
-        } else {
-          colorClass = "red-ring-pulse";
-        }
-      } else if (count > 0) {
-        colorClass = "bg-sky-400";
-      } else if (count === 0) {
-        colorClass = "bg-yellow-300";
-      } else {
-        colorClass = "bg-black";
-      }
+    const isToday = (i === 0);
+    if (count === undefined && isToday) {
+      colorClass = "red-ring-pulse";
+    } else if (count !== undefined && isToday && count > 0) {
+      colorClass = "rainbow-animate";
+    } else if (count !== undefined && count > 0) {
+      colorClass = "bg-sky-400";
+    } else if (count !== undefined && count === 0) {
+      colorClass = "bg-yellow-300";
+    } else {
+      colorClass = "bg-black";
     }
 
     allDays.push({ dateStr, colorClass, count });
