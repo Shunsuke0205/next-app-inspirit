@@ -1,2 +1,27 @@
 @import "tailwindcss";
 
+
+
+@keyframes rainbow-glow {
+  0%, 100% { background-color: #ff0000; box-shadow: 0 0 5px #ff0000; }
+  16% { background-color: #ff7f00; box-shadow: 0 0 8px #ff7f00; }
+  33% { background-color: #ffff00; box-shadow: 0 0 10px #ffff00; }
+  50% { background-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
+  66% { background-color: #4646ff; box-shadow: 0 0 8px #4646ff; }
+  83% { background-color: #b855ff; box-shadow: 0 0 5px #b855ff; }
+}
+
+.rainbow-animate {
+  animation: rainbow-glow 1.5s linear infinite;
+}
+
+@keyframes pulse-red-ring {
+  0%, 100% { border-color: transparent; box-shadow: 0 0 0 0px transparent; }
+  50% { border-color: #ef4444; box-shadow: 0 0 0 3px #fee2e2; }
+}
+
+.red-ring-pulse {
+  animation: pulse-red-ring 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-width: 2px;
+  border-color: transparent;
+}
