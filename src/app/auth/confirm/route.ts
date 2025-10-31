@@ -11,25 +11,28 @@ function isSafeRedirect(url: string, allowedHost: string): boolean {
   }
 
   try {
-    const nextUrl = new URL(url, `https://${allowedHost}`); // Base URL to parse relative URLs
-
-    if (nextUrl.hostname && nextUrl.hostname !== allowedHost) {
-      // It is not allowed to redirect to external domains
+    // Deny protocol-relative URLs
+    if (url.startsWith('//')) {
       return false;
     }
 
-    if (nextUrl.protocol !== "http:" && nextUrl.protocol !== "https:") {
-      return false;
-    }
-
+    // Allow relative paths (starting with / but not protocol-relative)
     if (url.startsWith('/')) {
-      // Allow a relative path without hostname
       return true;
     }
 
-    return nextUrl.hostname === allowedHost;
+    // Parse the absolute URL
+    const parsedUrl = new URL(url);
+    
+    // Allow only HTTPS protocol
+    if (parsedUrl.protocol !== "https:") {
+      return false;
+    }
 
-  } catch (error: unknown) {
+    // Allow only the specified host
+    return parsedUrl.hostname.toLowerCase() === allowedHost.toLowerCase();
+
+  } catch (error) {
     console.error(error);
     return false;
   }
