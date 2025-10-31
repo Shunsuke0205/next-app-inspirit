@@ -29,7 +29,8 @@ function isSafeRedirect(url: string, allowedHost: string): boolean {
 
     return nextUrl.hostname === allowedHost;
 
-  } catch (e) {
+  } catch (error: unknown) {
+    console.error(error);
     return false;
   }
 }
