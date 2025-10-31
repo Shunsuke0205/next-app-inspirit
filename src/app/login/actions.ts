@@ -70,7 +70,6 @@ export async function logout() {
   if (error) {
     redirect('/error');
   }
-  console.log("Successfully logged out");
 
   revalidatePath('/login', 'layout');
   redirect('/login');
