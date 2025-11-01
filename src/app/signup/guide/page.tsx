@@ -15,10 +15,10 @@ const SignupGuidePage = () => {
           <p className="text-sm">
             数分以内に、「Supabase Auth」というところから、「高校生の代理購入アプリの新規登録」という件名のメールが届きます。
           </p>
-          <p className="text-sm">
+          <p className="text-sm mb-4">
             そのメールに記載されているリンクをクリックしていただくとユーザー登録が完了し、ログインできるようになります。
           </p>
-          <p className="text-sm mb-4">
+          {/* <p className="text-sm mb-4">
             メールのURLをクリックしていただくとアプリ上のユーザー登録は完了しますが、それだけではまだアプリを使えません。
             <br />
             高校生でない人による不正利用を防ぐために、すべての高校生ユーザーは、アプリの運営者（平田駿輔）によって高校生かどうか認証されています。認証された高校生だけがアプリを使えるように手作業で確認を行っておりますので、こちらの Google フォームの送信にご協力いただけますと幸いです。🙇🏻‍♀️
@@ -29,7 +29,10 @@ const SignupGuidePage = () => {
             rel="noopener noreferrer"
             className="text-indigo-600 hover:underline">
             高校生の認証用フォーム（1分で終わります）
-          </a>
+          </a> */}
+          <p className="text-sm mb-4">
+            しかし、アプリの機能をご利用いただくために平田が手作業で登録させていただく必要があるため、1-2 日ほどお時間いただけないでしょうか。お待たせして申し訳ありません。
+          </p>
           <p className="text-sm mt-4">
             今後ともどうぞよろしくお願いいたします。
             <br />
