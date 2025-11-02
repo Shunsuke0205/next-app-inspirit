@@ -32,6 +32,17 @@ export async function recordCommitment(
   }
   const userId = userData.user.id;
 
+  const { data: applicationData, error: applicationError } = await supabase
+    .from("scholarship_applications")
+    .select("user_id")
+    .eq("id", applicationId)
+    .eq("user_id", userId)
+    .single();
+
+  if (applicationError || !applicationData) {
+    return { success: false, error: "Application not found or access denied", committedDate: null };
+  }
+
   // ------------------------------------------------------------------
   // 1. Check for existing commitment for the day (SELECT)
   // ------------------------------------------------------------------
