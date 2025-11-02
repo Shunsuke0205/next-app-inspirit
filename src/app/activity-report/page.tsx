@@ -29,7 +29,17 @@ export default async function MyActivityReportsPage() {
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData?.user) {
     console.error("User not authenticated:", userError?.message);
-    <p className="text-red-500">申し訳ありません。まずはログインをお願いいたします。</p>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+        <div className="text-center p-8 bg-white rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">認証が必要です</h1>
+          <p className="text-gray-700">まずはログインをお願いいたします。</p>
+          <Link href="/login" className="mt-6 inline-block bg-indigo-600 text-white px-4 py-2 rounded-md">
+            ログインページへ
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const userId = userData.user?.id;
