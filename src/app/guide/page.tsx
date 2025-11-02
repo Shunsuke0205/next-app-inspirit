@@ -78,7 +78,7 @@ export default function GuidePage() {
 
       <div className="text-center mt-8 text-gray-500 text-sm">
         <p>ご不明な点はメールでお問い合わせください。</p>
-        <p>メールアドレス: en4singleparents@gmail.com</p>
+        <p>メールアドレス: shunsukehirata777@gmail.com</p>
       </div>
     </div>
   );
