@@ -32,6 +32,21 @@ export async function recordCommitment(
   }
   const userId = userData.user.id;
 
+  const { data: studentAuthData, error: studentAuthError } = await supabase
+    .from("student_authorizations")
+    .select("is_verified, is_banned")
+    .eq("user_id", userId)
+    .single();
+  if (studentAuthError) {
+    return { success: false, error: "Failed to fetch student authorization data", committedDate: null };
+  }
+  if (!studentAuthData?.is_verified) {
+    return { success: false, error: "User is not verified", committedDate: null };
+  }
+  if (studentAuthData.is_banned) {
+    return { success: false, error: "User is banned", committedDate: null };
+  }
+
   const { data: applicationData, error: applicationError } = await supabase
     .from("scholarship_applications")
     .select("user_id")
