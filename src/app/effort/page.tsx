@@ -3,12 +3,11 @@ import { createClient } from "@/utils/supabase/server";
 import CommitmentButtonList from "./commitmentButtonList";
 import { redirect } from "next/navigation";
 import CommitmentCalendar from "./commitmentCalendar";
-import { getJstCommitDate } from "./jstDateUtils";
 
-async function fetchCommitmentHistory(userId: string, days: number) {
+async function fetchCommitmentHistory(userId: string, days: number, todayJst: string) {
   const supabase = await createClient();
 
-  const endDate = new Date(getJstCommitDate());
+  const endDate = new Date(todayJst);
   const startDate = new Date(endDate);
   startDate.setDate(startDate.getDate() - days); // 指定された日数前に設定
   endDate.setDate(endDate.getDate() + 1); // end_date_in は排他的なので1日追加
@@ -43,6 +42,13 @@ export default async function EffortPage() {
   }
 
   const userId = userData.user.id;
+
+  const { data: jstDateData, error: jstDateError } = await supabase
+    .rpc("get_jst_commit_date");
+  if (jstDateError || !jstDateData) {
+    console.error("Error fetching JST committed date:", jstDateError?.message);
+    return new Map<string, number>();
+  }
 
   {
     const { data: studentAuthData, error: studentAuthError } = await supabase
@@ -106,7 +112,7 @@ export default async function EffortPage() {
     console.log("No reporting applications found.");
   }
 
-  const commitmentDateMap = await fetchCommitmentHistory(userId, 7 * 6);
+  const commitmentDateMap = await fetchCommitmentHistory(userId, 7 * 6, jstDateData);
 
 
 
@@ -139,7 +145,7 @@ export default async function EffortPage() {
             <span className="text-xs text-gray-600">未アクセス/未報告</span>
           </div>
         </div>
-        <CommitmentCalendar commitMap={commitmentDateMap} />
+        <CommitmentCalendar commitMap={commitmentDateMap} todayJst={jstDateData} />
       </div>
       
     </div>

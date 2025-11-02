@@ -3,7 +3,6 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
-import { getJstCommitDate } from "./jstDateUtils";
 
 export type CommitmentType = "touched" | "completed" | "potential_miss";
 
@@ -58,6 +57,15 @@ export async function recordCommitment(
     return { success: false, error: "Application not found or access denied", committedDate: null };
   }
 
+
+  const { data: todayJstData, error: todayJstError } = await supabase
+    .rpc("get_jst_commit_date");
+  if (todayJstError || !todayJstData) {
+    console.error("Error fetching JST committed date:", todayJstError?.message);
+    return { success: false, error: "Failed to get JST committed date", committedDate: null };
+  }
+
+
   // ------------------------------------------------------------------
   // 1. Check for existing commitment for the day (SELECT)
   // ------------------------------------------------------------------
@@ -66,7 +74,7 @@ export async function recordCommitment(
     .select("id, commitment_type")
     .eq("user_id", userId)
     .eq("application_id", applicationId)
-    .eq("committed_date_jst", getJstCommitDate())
+    .eq("committed_date_jst", todayJstData)
     .single();
 
   // Handle case where row is simply not found (PGRST116)

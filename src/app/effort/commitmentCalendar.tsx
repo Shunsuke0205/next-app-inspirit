@@ -1,8 +1,12 @@
 import React from "react";
-import { getJstCommitDate } from "./jstDateUtils";
 
-const CommitmentCalendar = ({ commitMap } : { commitMap: Map<string, number> }) => {
-  const TODAY = new Date(getJstCommitDate());
+interface CommitmentCalendarProps {
+  commitMap: Map<string, number>;
+  todayJst: string;
+}
+
+const CommitmentCalendar = ({ commitMap, todayJst } : CommitmentCalendarProps) => {
+  const TODAY = new Date(todayJst);
   // let nextMonday = new Date(TODAY);
   // nextMonday.setDate(TODAY.getDate() + (8 - TODAY.getDay()) % 7);
   // console.log("Next Monday:", nextMonday.toISOString().substring(0, 10));

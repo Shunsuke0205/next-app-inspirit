@@ -1,7 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import React from "react";
 import CommitmentButton from "./commitmentButton";
-import { getJstCommitDate } from "./jstDateUtils";
 import { redirect } from "next/navigation";
 
 
@@ -15,11 +14,20 @@ export default async function CommitmentButtonList({ applications } : { applicat
   }
 
   const userId = userData.user.id;
+  const { data: todayJstData, error: todayJstError } = await supabase
+    .rpc("get_jst_commit_date");
+  if (todayJstError || !todayJstData) {
+    console.error("Error fetching JST committed date:", todayJstError?.message);
+    return (
+      <div>申し訳ございません。今日のコミットメント情報を取得できませんでした</div>
+    );
+  }
+
   const { data: todayCommitmentsData, error: todayCommitmentsError } = await supabase
     .from("student_commitments")
     .select("application_id, commitment_type")
     .eq("user_id", userId)
-    .eq("committed_date_jst", getJstCommitDate());
+    .eq("committed_date_jst", todayJstData);
 
   if (todayCommitmentsError) {
     console.error("Error fetching today's commitments:", todayCommitmentsError);
